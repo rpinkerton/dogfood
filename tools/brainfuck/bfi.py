@@ -74,13 +74,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     cmdline = args.c
-    input = args.input
-    print input
+    data_in = args.input
 
     if cmdline:
-        run(input)
+        run(data_in)
     else:
-        file = open(input, "r")
+        file = open(data_in, "r")
         code = ""
         for line in file:
             ''.join([code, line])
