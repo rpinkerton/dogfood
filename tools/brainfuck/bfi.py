@@ -9,8 +9,9 @@ def run(code):
     # Initialize the data array. Only allocate cells we use for speed and
     # compactness
     data = [0]
-    # Initialize the instruction array
+    # Initialize the instruction array. Filter the array ahead of time for speed
     inst = list(code)
+    inst = [it for it in inst if it in list("<>.,+-[]")]
     # Pointers for the current position in the instruction and data arrays
     dp = 0
     ip = 0
