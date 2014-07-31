@@ -67,6 +67,13 @@ def input_loop(screen):
                                 len(ser_file[params['cursor_y']]))
         screen.move(params['cursor_y'], params['cursor_x'])
 
+    # Handle enter key
+    elif c == curses.KEY_ENTER:
+      continue
+
+    # Handle backspace key
+    elif c == curses.KEY_BACKSPACE:
+      continue
 
     # Otherwise we're writing characters to the buffer
     else:
