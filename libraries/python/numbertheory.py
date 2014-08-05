@@ -23,6 +23,20 @@ def primes(limit):
 
     return primes
 
+def prime_factorization(n, max_prime_digits=5):
+    """Returns the prime factorization of n"""
+    factorization = []
+    for prime in primes(10 ** max_prime_digits):
+        multiplicity = 0
+        if n % prime == 0:
+            while n % prime == 0:
+                multiplicity += 1
+                n /= prime
+            factorization.append((prime, multiplicity))
+        if n == 1:
+            break
+    return factorization
+
 def coprime(a, b):
     if fractions.gcd(a, b) == 1:
         return True
