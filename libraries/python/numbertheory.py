@@ -37,6 +37,23 @@ def prime_factorization(n, max_prime_digits=5):
             break
     return factorization
 
+def divisors(n):
+    '''Returns all the divisors of n'''
+    divisors = []
+    if n == 1 or n == 0:
+        return []
+    for num in range(2, int(math.ceil(math.sqrt(n))) + 1):
+        if n % num == 0:
+            divisors.append(num)
+            divisors.append(n / num)
+    if math.sqrt(n) % 1 == 0:
+        divisors.remove(int(math.sqrt(n)))
+    if n / math.ceil(math.sqrt(n)) % 1 == 0 and math.sqrt(n) % 1 != 0:
+        divisors.remove(int(math.ceil(math.sqrt(n))))
+        divisors.remove(int(n / math.ceil(math.sqrt(n))))
+    divisors.append(1)
+    return divisors
+
 def coprime(a, b):
     if fractions.gcd(a, b) == 1:
         return True
