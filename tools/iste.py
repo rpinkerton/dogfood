@@ -72,8 +72,24 @@ def input_loop(screen):
       continue
 
     # Handle backspace key
-    elif c == curses.KEY_BACKSPACE:
-      continue
+    elif c in [curses.KEY_BACKSPACE, curses.KEY_DC, 127]:
+      # Get a copy of the current line to mutate
+      edit_line = list(ser_file[params['cursor_y']])
+      # If there's nothing on the line, delete the line (unless it's the only
+      # line in the file)
+      if edit_line == []:
+        if params['cursor_y'] != 0:
+          del ser_file[params['cursor_y']]
+          screen.deleteln()
+      else
+        # TODO Need to handle case where line has chars but backspace at strtln
+        # Otherwise just delete the character at the current position
+        del edit_line[params['cursor_x'] - 1]
+        # Replace the old line with the new line, and update the screen
+        ser_file[params['cursor_y']] = ''.join(edit_line)
+        screen.delch(params['cursor_y'], params['cursor_x'] - 1)
+        params['cursor_x'] -= 1
+        screen.move(params['cursor_y'], params['cursor_x'])
 
     # Otherwise we're writing characters to the buffer
     else:
@@ -105,6 +121,9 @@ if __name__ == '__main__':
   ser_file = []
   for line in file:
     ser_file.append(line.strip("\n"))
+  # If we have a new file, give it one empty line
+  if len(ser_file) == 0:
+    ser_file.append("")
   # Close the file so that we can open it again later for clobbered writing
   file.close()
 
