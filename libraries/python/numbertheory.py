@@ -54,6 +54,15 @@ def divisors(n):
     divisors.append(1)
     return divisors
 
+def mul_order(num, base):
+    '''Returns the multiplicative order of num mod base'''
+    order = 1
+    current = num
+    while current % base != 1:
+        current = (current * num) % base
+        order += 1
+    return order
+
 def coprime(a, b):
     if fractions.gcd(a, b) == 1:
         return True
