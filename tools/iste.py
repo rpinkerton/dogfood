@@ -75,14 +75,21 @@ def input_loop(screen):
     elif c in [curses.KEY_BACKSPACE, curses.KEY_DC, 127]:
       # Get a copy of the current line to mutate
       edit_line = list(ser_file[params['cursor_y']])
-      # If there's nothing on the line, delete the line (unless it's the only
-      # line in the file)
-      if edit_line == []:
+      # Handle backspacing at the front of a line
+      if params['cursor_x'] == 0:
         if params['cursor_y'] != 0:
           del ser_file[params['cursor_y']]
           screen.deleteln()
-      else
-        # TODO Need to handle case where line has chars but backspace at strtln
+          params['cursor_y'] -= 1
+          params['cursor_x'] = len(ser_file[params['cursor_y']])
+          screen.move(params['cursor_y'], params['cursor_x'])
+          # If the line wasn't empty, add it to the above line
+          if edit_line != []:
+            ser_file[params['cursor_y']] += ''.join(edit_line)
+            screen.addstr(params['cursor_y'], params['cursor_x'],
+              ''.join(edit_line[:params['width'] - params['cursor_x']]))
+            params['cursor_x'] += len(edit_line)          
+      else:
         # Otherwise just delete the character at the current position
         del edit_line[params['cursor_x'] - 1]
         # Replace the old line with the new line, and update the screen
