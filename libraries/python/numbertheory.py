@@ -2,6 +2,7 @@ import math
 import fractions
 
 def fibonacci(n):
+    """Returns the nth fibonacci number"""
     if n == 0:
         return 1
     if n == 1:
@@ -9,6 +10,7 @@ def fibonacci(n):
     return fibonacci(n-1) + fibonacci(n-2)
 
 def primes(limit):
+    """Returns a list of primes up to limit"""
     limitn = limit+1
     not_prime = [False] * limitn
     primes = []
@@ -38,7 +40,7 @@ def prime_factorization(n, max_prime_digits=5):
     return factorization
 
 def divisors(n):
-    '''Returns all the divisors of n'''
+    """Returns all the divisors of n"""
     divisors = []
     if n == 1 or n == 0:
         return []
@@ -55,7 +57,7 @@ def divisors(n):
     return divisors
 
 def mul_order(num, base):
-    '''Returns the multiplicative order of num mod base'''
+    """Returns the multiplicative order of num mod base"""
     order = 1
     current = num
     while current % base != 1:
@@ -64,11 +66,13 @@ def mul_order(num, base):
     return order
 
 def coprime(a, b):
+    """Returns a boolean indicating whether two numbers are coprime"""
     if fractions.gcd(a, b) == 1:
         return True
     return False
 
 def coprime_less(n):
+    """Returns the list of numbers less than n which are coprime"""
     coprimes = []
     for i in range(1, n + 1):
         if coprime(i, n):
