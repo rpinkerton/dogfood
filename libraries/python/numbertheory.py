@@ -25,6 +25,13 @@ def primes(limit):
 
     return primes
 
+def is_prime(num):
+    """Returns whether or not a given number is prime"""
+    result = True
+    for prime in primes(int(math.ceil(math.sqrt(num)))):
+        result &= coprime(prime, num)
+    return result
+
 def prime_factorization(n, max_prime_digits=5):
     """Returns the prime factorization of n"""
     factorization = []
