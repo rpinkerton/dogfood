@@ -86,4 +86,12 @@ def coprime_less(n):
             coprimes.append(i)
     return coprimes
 
+def euler_totient(n):
+    """Returns the euler totient of n"""
+    factorization = prime_factorization(n)
+    totient = n
+    for prime, _ in factorization:
+        totient *= (1.0 - 1.0/prime)
+    return int(totient)
+
         
