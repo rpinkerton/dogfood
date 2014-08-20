@@ -94,4 +94,12 @@ def euler_totient(n):
         totient *= (1.0 - 1.0/prime)
     return int(totient)
 
-        
+def moebius(n):
+    """Returns the moebius function of n"""
+    factorization = prime_factorization(n)
+    result = 1
+    for _, multiplicity in factorization:
+        if multiplicity != 1:
+            return 0
+        result *= -1
+    return result
